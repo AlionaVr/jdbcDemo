@@ -1,0 +1,2 @@
+### Получить всех по городу
+GET http://localhost:8080/products/fetch-product?name=ALEXEY

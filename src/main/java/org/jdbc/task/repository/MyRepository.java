@@ -1,5 +1,8 @@
-package org.jdbc.task;
+package org.jdbc.task.repository;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.Query;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
@@ -9,21 +12,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
-
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 @Repository
 @RequiredArgsConstructor
 public class MyRepository {
-    private final NamedParameterJdbcTemplate jdbcTemplate;
+    @PersistenceContext
+    private EntityManager entityManager;
     private final String query = read("sql/query.sql");
 
     public List<String> getProductName(String name) {
-        Map<String, Object> params = Map.of("name", name);
-        return jdbcTemplate.query(query, params,
-                (rs, rowNum) -> rs.getString("product_name"));
+        Query nativeQuery = entityManager.createNativeQuery(query);
+        nativeQuery.setParameter("name", name);
+        return nativeQuery.getResultList();
     }
 
     private static String read(String scriptFileName) {

@@ -1,6 +1,7 @@
-package org.jdbc.task;
+package org.jdbc.task.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.jdbc.task.service.ProductService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

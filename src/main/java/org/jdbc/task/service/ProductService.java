@@ -1,6 +1,7 @@
-package org.jdbc.task;
+package org.jdbc.task.service;
 
 import lombok.RequiredArgsConstructor;
+import org.jdbc.task.repository.MyRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
